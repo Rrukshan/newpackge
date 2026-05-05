@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FutureFlow Designs | Creative Studio</title>
+    
+    <!-- Professional Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Syncopate:wght@400;700&family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+    <style>
+        :root {
+            --bg: #000000;
+            --primary: #00f2fe;
+            --accent: #7000ff;
+            --text: #ffffff;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.07);
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            cursor: none; /* Hide default cursor for custom one */
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* Custom Cursor Animation */
+        #cursor {
+            position: fixed;
+            width: 20px; height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease;
+        }
+
+        #cursor-blur {
+            position: fixed;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(112, 0, 255, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Nav Bar - Minimal & Pro */
+        nav {
+            position: fixed; width: 100%; top: 0;
+            padding: 30px 8%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo { display: flex; align-items: center; gap: 15px; }
+        .nav-logo img { height: 40px; }
+        .nav-logo span { font-family: 'Syncopate', sans-serif; font-weight: 700; letter-spacing: 5px; font-size: 1rem; }
+
+        /* Hero Section - The "Wow" Factor */
+        header {
+            height: 100vh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center; position: relative;
+        }
+
+        .hero-logo { width: 180px; margin-bottom: 40px; animation: glow 4s infinite alternate; }
+
+        header h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 700; line-height: 0.9;
+            text-transform: uppercase;
+        }
+
+        .outline-text {
+            color: transparent;
+            -webkit-text-stroke: 1px var(--primary);
+            opacity: 0.5;
+        }
+
+        /* Packages Section - Developer Dashboard Style */
+        .pricing-section {
+            padding: 150px 8%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .price-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 60px 40px;
+            border-radius: 40px;
+            position: relative;
+            transition: 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            overflow: hidden;
+        }
+
+        .price-card:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: var(--primary);
+            transform: translateY(-10px);
+        }
+
+        .price-card::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(0, 242, 254, 0.05), transparent);
+            transform: translateX(-100%); transition: 0.5s;
+        }
+
+        .price-card:hover::after { transform: translateX(100%); }
+
+        .price-card h3 { font-family: 'Space Grotesk'; font-size: 2rem; margin-bottom: 10px; }
+        .price-card .cost { font-size: 3rem; font-weight: 900; margin-bottom: 30px; }
+        .price-card .cost span { font-size: 1rem; color: #444; }
+
+        .feature-list { list-style: none; margin-bottom: 40px; }
+        .feature-list li { margin: 20px 0; font-size: 0.95rem; color: #888; display: flex; align-items: center; gap: 15px; }
+        .feature-list li i { color: var(--primary); font-size: 0.7rem; }
+        .feature-list li b { color: #fff; }
+        .feature-list li .sin { font-size: 0.8rem; color: #444; display: block; }
+
+        .cta-btn {
+            display: block; width: 100%;
+            padding: 25px; border: 1px solid var(--border);
+            color: #fff; text-decoration: none; border-radius: 20px;
+            text-align: center; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 2px; transition: 0.4s;
+        }
+
+        .price-card:hover .cta-btn { background: #fff; color: #000; border-color: #fff; }
+
+        /* Conditions Section */
+        .conditions {
+            padding: 100px 8%;
+            border-top: 1px solid var(--border);
+            opacity: 0.3; transition: 0.5s;
+        }
+        .conditions:hover { opacity: 1; }
+        .conditions h4 { font-family: 'Syncopate'; font-size: 0.8rem; letter-spacing: 5px; margin-bottom: 30px; }
+        .conditions p { font-size: 0.75rem; color: #888; margin-bottom: 10px; max-width: 600px; line-height: 1.8; }
+
+        /* Footer */
+        footer {
+            padding: 100px 8%;
+            text-align: center; background: #000;
+            border-top: 1px solid var(--border);
+        }
+
+        .wa-float {
+            position: fixed; bottom: 50px; right: 50px;
+            width: 80px; height: 80px; background: #fff;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: #000; font-size: 30px; text-decoration: none; z-index: 1000;
+            transition: 0.5s;
+        }
+        .wa-float:hover { transform: scale(1.1) rotate(15deg); background: var(--primary); }
+
+        @keyframes glow {
+            0% { filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.2)); }
+            100% { filter: drop-shadow(0 0 40px rgba(112, 0, 255, 0.6)); }
+        }
+
+        /* Disable Custom Cursor on Mobile */
+        @media (max-width: 768px) {
+            #cursor, #cursor-blur { display: none; }
+            * { cursor: auto; }
+            .pricing-section { grid-template-columns: 1fr; }
+            header h1 { font-size: 3.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cursor"></div>
+    <div id="cursor-blur"></div>
+
+    <nav>
+        <div class="nav-logo">
+            <img src="webimage/logo.png" alt="Logo">
+            <span>FUTUREFLOW</span>
+        </div>
+        <div style="font-size: 0.8rem; color: #444; letter-spacing: 2px;">ESTD 2024</div>
+    </nav>
+
+    <header>
+        <img src="webimage/logo.png" alt="FutureFlow" class="hero-logo" data-aos="zoom-in">
+        <h1 data-aos="fade-up">FUTURE <br><span class="outline-text">FLOW</span></h1>
+        <p data-aos="fade-up" data-aos-delay="200" style="letter-spacing: 10px; font-size: 0.7rem; color: #555; margin-top: 20px;">CRAFTING DIGITAL SUPERIORITY</p>
+    </header>
+
+    <section class="pricing-section">
+        
+        <!-- Starter -->
+        <div class="price-card" data-aos="fade-right">
+            <h3>Starter</h3>
+            <div class="cost">Rs. 2,800<span> / 05 Units</span></div>
+            <ul class="feature-list">
+                <li><i class="fas fa-square-full"></i> <div><b>05 Premium Designs</b> <span class="sin">පෝස්ට් 05ක්</span></div></li>
+                <li><i class="fas fa-square-full"></i> <div><b>06 Revision Cycles</b> <span class="sin">වෙනස් කිරීම් 06ක්</span></div></li>
+                <li><i class="fas fa-square-full"></i> <div><b>First Sample Zero-Risk</b> <span class="sin">පළමු නිර්මාණය නොමිලේ</span></div></li>
+            </ul>
+            <a href="https://wa.me/94765772578?text=Starter%20Pack%20Inquiry" class="cta-btn">Begin Evolution</a>
+        </div>
+
+        <!-- Growth -->
+        <div class="price-card" data-aos="fade-up" style="border-color: var(--accent);">
+            <div style="position: absolute; top: 30px; right: 40px; font-size: 0.6rem; letter-spacing: 2px; color: var(--accent);">RECOMMENDED</div>
+            <h3>Momentum</h3>
+            <div class="cost">Rs. 5,000<span> / 15 Units</span></div>
+            <ul class="feature-list">
+                <li><i class="fas fa-square-full"></i> <div><b>15 Premium Designs</b> <span class="sin">පෝස්ට් 15ක්</span></div></li>
+                <li><i class="fas fa-square-full"></i> <div><b>04 Revision Cycles</b> <span class="sin">වෙනස් කිරීම් 04ක්</span></div></li>
+                <li><i class="fas fa-square-full"></i> <div><b>30-Day Deployment</b> <span class="sin">මාසයක කාල සීමාවකි</span></div></li>
+            </ul>
+            <a href="https://wa.me/94765772578?text=Momentum%20Pack%20Inquiry" class="cta-btn">Boost Brand</a>
+        </div>
+
+        <!-- Elite -->
+        <div class="price-card" data-aos="fade-left">
+            <h3>Elite</h3>
+            <div class="cost">Rs. 9,500<span> / 25 Units</span></div>
+            <ul class="feature-list">
+                <li><i class="fas fa-square-full"></i> <div><b>25 Elite Designs</b> <span class="sin">නිර්මාණ 25ක්</span></div></li>
+                <li><i class="fas fa-square-full"></i> <div><b>Unlimited Cycles</b> <span class="sin">සීමාවකින් තොරව වෙනස් කිරීම්</span></div></li>
+                <li><i class="fas fa-square-full"></i> <div><b>Lifetime Access</b> <span class="sin">කාල සීමාවක් නොමැත</span></div></li>
+            </ul>
+            <a href="https://wa.me/94765772578?text=Elite%20Pack%20Inquiry" class="cta-btn">Acquire Status</a>
+        </div>
+
+    </section>
+
+    <section class="conditions">
+        <h4>TERMS & CONDITIONS</h4>
+        <p>• Initial concepts are delivered with protective watermarks as standard protocol. (පළමු නිර්මාණය watermark සහිතව sample එකක් ලෙස ලබා දේ)</p>
+        <p>• Full service activation requires project clearance after sample approval. (පළමු නිර්මාණය බලා සෑහීමකට පත්වේ නම් පමණක් මුළු මුදල ගෙවා ඉතිරි නිර්මාණ ඇරඹිය හැක)</p>
+        <p>• We strictly operate on a per-package basis; single design requests are not accepted. (ඉහත පැකේජ යටතේ පමණක් නිර්මාණ සිදු කෙරේ)</p>
+    </section>
+
+    <a href="https://wa.me/94765772578" class="wa-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <footer>
+        <div style="font-family: 'Syncopate'; letter-spacing: 10px; margin-bottom: 20px;">FUTUREFLOW</div>
+        <p style="color: #222; font-size: 0.6rem;">&copy; 2024. ALL RIGHTS RESERVED. POWERED BY CREATIVITY.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1200, once: true });
+
+        // Custom Cursor Logic
+        const cursor = document.getElementById('cursor');
+        const blur = document.getElementById('cursor-blur');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            blur.style.left = e.clientX + 'px';
+            blur.style.top = e.clientY + 'px';
+        });
+
+        // Hover Effect on buttons
+        const btns = document.querySelectorAll('.cta-btn, .wa-float');
+        btns.forEach(btn => {
+            btn.addEventListener('mouseenter', () => cursor.style.transform = 'scale(4)');
+            btn.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
+        });
+    </script>
+</body>
+</html>
